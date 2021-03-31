@@ -2,7 +2,6 @@ import React, { memo,useEffect, useState} from "react";
 import { csv } from "d3-fetch";
 import {scaleLinear} from "d3-scale";
 import {
-  ZoomableGroup,
   ComposableMap,
   Geographies,
   Geography
@@ -13,17 +12,8 @@ const geoUrl =
 
 const colorScale = scaleLinear()
   .domain([0,1])
-  .range(["#555555", "#ff5555"]);
+  .range(["#555555", "#ff0000"]);
 
-const rounded = num => {
-  if (num > 1000000000) {
-    return Math.round(num / 100000000) / 10 + "Bn";
-  } else if (num > 1000000) {
-    return Math.round(num / 100000) / 10 + "M";
-  } else {
-    return Math.round(num / 100) / 10 + "K";
-  }
-};
 
 const Maps = ({ setTooltipContent }) => {
 
@@ -36,22 +26,20 @@ const Maps = ({ setTooltipContent }) => {
   }, []);
 
   return (
-      <ComposableMap data-tip="" projectionConfig={{ scale: 150 }}>
-         
-         
-         
+      <ComposableMap data-tip="" projectionConfig={{ scale: 100 }}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map(geo => {
                 const d = data.find((s) => s.ISO3 === geo.properties.ISO_A3);
+                console.log(d)
                 return(
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={d ? colorScale(d["2020"]) : "#F5F4F6"}
+                  fill={d ? colorScale(d["2020"]) : "#000000"}
                 onMouseEnter={() => {
                     const { NAME, POP_EST } = geo.properties;
-                    setTooltipContent(`${NAME} `);
+                    setTooltipContent(`${NAME}`);
                   }}
 
                 onMouseLeave={() => {
@@ -60,7 +48,7 @@ const Maps = ({ setTooltipContent }) => {
 
                 style={{
                     hover: {
-                      fill: "#ffff00",
+                      fill: "#000000",
                       outline: "none"
                     },
                    

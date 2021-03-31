@@ -5,18 +5,22 @@ import Header from './components/Header.js';
 import Section from './components/Section';
 import Maps from './components/Visualization1';
 import ReactTooltip from "react-tooltip";
-
+import Visualizationd3 from './components/Visualizationd3';
+import Table from './components/Table.js'
+import Linechart from './components/Linechart';
 
 function App() {
   const [content, setContent] = useState("");
   return (
     <div className='app'>
     <Header/>
-    <Section/>
-    <div >
-    <Maps setTooltipContent={setContent}/>
+    <Section/>  
+    <Maps setTooltipContent={setContent} />
     <ReactTooltip html={true} >{content}</ReactTooltip>
-    </div>
+    <Table/>
+    <Visualizationd3/>
+    <Linechart/>
+
     </div>
   );
 }

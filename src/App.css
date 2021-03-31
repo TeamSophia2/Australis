@@ -63,3 +63,13 @@ h1{
     transform: rotate(360deg);
   }
 }
+
+
+#mapa {
+  float: left;
+  background-color: lightblue;
+}
+#tabla {
+  float: left;
+  background-color: red;
+}
