@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import * as d3 from 'd3';
+
 import { csv } from 'd3-fetch';
 
 const csvUrl =
@@ -9,10 +11,8 @@ export const useData = () => {
 
   useEffect(() => {
     const row = d => {
-      d.sepal_length = +d.sepal_length;
       d.sepal_width = +d.sepal_width;
       d.petal_length = +d.petal_length;
-      d.petal_width = +d.petal_width;
       return d;
     };
     csv(csvUrl, row).then(setData);

@@ -5,7 +5,6 @@
 p{
   margin-left: 10em;
   margin-right: 10em;
-
   text-align: left;
   min-width: 20vh;
   font: 1em times;
@@ -62,14 +61,4 @@ h1{
   to {
     transform: rotate(360deg);
   }
-}
-
-
-#mapa {
-  float: left;
-  background-color: lightblue;
-}
-#tabla {
-  float: left;
-  background-color: red;
 }

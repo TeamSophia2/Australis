@@ -3,25 +3,43 @@ import './App.css';
 import React, { useState } from "react";
 import Header from './components/Header.js';
 import Section from './components/Section';
-import Maps from './components/Visualization1';
+import Maps from './components/Mapa';
 import ReactTooltip from "react-tooltip";
-import Visualizationd3 from './components/Visualizationd3';
-import Table from './components/Table.js'
-import Linechart from './components/Linechart';
+import SesgoVis from './components/SesgoVis';
+import Linechart from './components/LineChart';
+import ClockApp from './components/Clock';
+import Svgd3 from './components/Svgd3';
+import Scatter from './components/Scatter';
+import{} from "react-router-dom"
+import { Route,BrowserRouter,Switch} from 'react-router-dom';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [content, setContent] = useState("");
   return (
-    <div className='app'>
+    <BrowserRouter>
+    <Switch>
+      <Route path="/" component={Dashboard} >
+
+      </Route>
+
+    </Switch>
+    </BrowserRouter>
+    
+    
+    
+    
+/*     <div className='app'>
     <Header/>
     <Section/>  
     <Maps setTooltipContent={setContent} />
     <ReactTooltip html={true} >{content}</ReactTooltip>
-    <Table/>
-    <Visualizationd3/>
     <Linechart/>
-
-    </div>
+    <SesgoVis/>
+    <Scatter/>
+    <Svgd3/>
+    <ClockApp/>
+    </div> */
   );
 }
 

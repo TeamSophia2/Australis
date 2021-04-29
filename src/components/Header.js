@@ -6,7 +6,7 @@ function Header() {
     return (
       <div>
       <h1>Indicadores de Pluralismo en los Medios de Prensa</h1>
-      <p> Sophia2 ene. 15, 2021</p>
+      <p> Sophia2 abril. 29, 2021</p>
       <h1>¿Qué es Sophia2?</h1>
       <p> 
       El presente proyecto se enmarca en el proyecto Fondecyt de Iniciación n° 11190714 titulado
