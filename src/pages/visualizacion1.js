@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
+import { csv, json, text } from 'd3-fetch';
 
 import {
   Box,
@@ -11,24 +13,65 @@ import WorldMap from '../componentes/WorldMap';
 import CountryInformation from '../componentes/CountryInformation';
 import BiasIndicator from '../componentes/BiasViz';
 
-/* import WorldMap from 'src/components/dashboard//WorldMap';
-// import BiasIndicator from 'src/components/dashboard//BiasIndicator';
-import CountryInformation from 'src/components/dashboard/CountryInformation';
-import BiasIndicator from 'src/components/dashboard/BiasIndicator'; */
-
 const Vista1 = () => {
-  // pais año indice escogidos
+  const [data_countries, setData_countries] = useState([]);
+  const [data_freddom, setData_freddom] = useState([]);
+  const [data_vulne, setData_vulne] = useState([]);
+  const [data_democracy, setData_democracy] = useState([]);
+  const [data_idh, setData_idh] = useState([]);
+  const [data1, setData1] = useState([]);
+  const [dataIndex, setDataIndex]= useState([]);
   const [pais, setPais] = useState('Chile');
+  const [iso3, setIso3] = useState('CHL');
   const [year, setYear] = useState('2018');
   const [indice, setIndice] = useState('noticias');
   const [numero, setNumero] = useState('23');
+  console.log(dataIndex);
+
   useEffect(() => {
-    console.log('Render Dashboard');
-    console.log(pais);
-    console.log(indice);
-    console.log(year);
-  }, []);
-  console.log('render dashboard 2');
+
+    const fetchDataCountries = async () => {
+      const result = await axios(
+        'http://localhost:8000/countries');
+      setData_countries(result.data);
+    };
+    const fetchDataFreedom = async () => {
+      const result = await axios(
+        'http://localhost:8000/freedom');
+      setData_freddom(result.data);
+    };
+    const fetchDataVulne = async () => {
+      const result = await axios(
+        'http://localhost:8000/vulne');
+      setData_vulne(result.data);
+    };
+    const fetchDataDemocracy = async () => {
+      const result = await axios(
+        'http://localhost:8000/democracy');
+      setData_democracy(result.data);
+    };
+    const fetchDataIdh = async () => {
+      const result = await axios(
+        'http://localhost:8000/hdi');
+      setData_idh(result.data);
+    };
+    fetchDataCountries();
+    fetchDataCountries();
+    fetchDataIdh();
+    fetchDataFreedom();
+    fetchDataVulne();
+    fetchDataDemocracy();
+    fetchDataIdh();
+    fetchDataFreedom();
+    fetchDataVulne();
+    fetchDataDemocracy();
+    csv('/medios_caleuche.csv').then((d) => { setData1(d); });
+  },[]);
+  console.log(data_freddom);
+  console.log(data_vulne);
+  console.log(data_idh);
+  console.log(data_democracy);
+
   return (
     <>
       <Helmet>
@@ -54,14 +97,14 @@ const Vista1 = () => {
               xs={12}
             >
               <WorldMap
-                pais={setPais}
                 year={year}
+                dataIn={setDataIndex}
+                pais={setPais}
+                iso3={setIso3}
                 setYear={setYear}
                 indexx={setIndice}
                 setNumero={setNumero}
               />
-              <BiasIndicator valor="40" grupo1="Hombres" grupo2="Mujeres" />
-
             </Grid>
             <Grid
               item
@@ -73,9 +116,15 @@ const Vista1 = () => {
                <CountryInformation
                 sx={{ height: '100%' }}
                 pais={pais}
-                indice={indice}
+                iso3={iso3}
                 year={year}
+                indice={indice}
                 numero={numero}
+                data_freddom={data_freddom}
+                data_democracy={data_democracy}
+                data_idh={data_idh}                
+                data_vulne={data_vulne}
+                data_countries={data_countries}
               />
               <MediaList />
             </Grid>

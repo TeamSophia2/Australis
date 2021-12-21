@@ -5,7 +5,10 @@ import {
   AppBar,
   Badge,
   Box,
+  Button,
   Hidden,
+  Tab,
+  Tabs,
   IconButton,
   Toolbar
 } from '@material-ui/core';
@@ -25,19 +28,27 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       <Toolbar>
         <RouterLink to="/">
           <Logo />
+        
+        </RouterLink>
+        <Box sx={{ flexGrow: 1 }} />
+        
+        <RouterLink to="/">
+        <Button variant="contained" color="primary"> Democracy Indicators | World Map</Button>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/app/dashboard2">
-          <Logo />
+        <Button variant="contained" color="primary">Cultural bias</Button>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/app/dashboard3">
-          <Logo />
+        <Button variant="contained" color="primary">Visibility in the media</Button>
         </RouterLink>
+    
         <Box sx={{ flexGrow: 1 }} />
         <IconButton color="inherit">
           <InputIcon />
         </IconButton>
+        <Button variant="contained" color="primary">Contained</Button>
         <IconButton
           color="inherit"
           onClick={onMobileNavOpen}

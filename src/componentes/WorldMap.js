@@ -15,117 +15,129 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Maps from './Mapa';
+import Map from './Map';
 /* eslint react/prop-types: 0 */
 
-const indicadores = [
-  {
-    nombre: 'noticias',
-    titulo: 'SOPHIA2',
-    yearMin: '2020',
-    yearMax: '2020',
-    dir: '/medios_caleuche.csv'
-  },
-  {
-    nombre: 'vulne',
-    titulo: 'VULNERABILIDAD',
-    yearMin: '1995',
-    yearMax: '2017',
-    dir: '/vulnerability.csv'
-
-  },
-  {
-    nombre: 'democracy',
-    titulo: 'DEMOCRACIA',
-    yearMin: '2020',
-    yearMax: '2020',
-    dir: '/democracy_index.csv'
-  },
-  {
-    nombre: 'freedom',
-    titulo: 'LIBERTAD DE PRENSA',
-    yearMin: '2021',
-    yearMax: '2021',
-    dir: '/Freedom_2021.csv'
-  },
-  {
-    nombre: 'desarrollo',
-    titulo: 'DESARROLLO HUMANO',
-    yearMin: '2019',
-    yearMax: '2019',
-    dir: '/HDR2019.json'
-  }
-];
 const WorldMap = (
   {
+    dataIn,
     pais,
     year,
+    iso3,
     indexx,
     setYear,
   }
 ) => {
+  const [indicadores,setIndicadores]= useState([
+    {
+      name: 'noticias',
+      titulo: 'SOPHIA2',
+      yearMin: '2020',
+      yearMax: '2020',
+      dir: '/medios_caleuche.csv'
+    },
+    {
+      name: 'vulne',
+      titulo: 'VULNERABILIDAD',
+      yearMin: '1995',
+      yearMax: '2012',
+      dir: '/vulnerability.csv'
+  
+    },
+    {
+      name: 'democracy',
+      titulo: 'DEMOCRACIA',
+      yearMin: '2020',
+      yearMax: '2020',
+      dir: '/democracy_index.csv'
+    },
+    {
+      name: 'freedom',
+      titulo: 'LIBERTAD DE PRENSA',
+      yearMin: '2020',
+      yearMax: '2021',
+      dir: '/Freedom_2021.csv'
+    },
+    {
+      name: 'desarrollo',
+      titulo: 'DESARROLLO HUMANO',
+      yearMin: '2019',
+      yearMax: '2019',
+      dir: '/HDR2019.json'
+    }
+  ]);
+  const [dataIndex, setDataIndex]= useState([]);
   const [content, setContent] = useState('');
   const [country, setCountry] = useState('CHL');
+  const [iso33, setIso33] = useState('CHL');
   const [index, setIndex] = useState('noticias');
+  const [year1, setYear1] = useState(2005);
+  const [yearmin, setYearmin] = useState(1990);
+  const [yearmax, setYearmax] = useState(2022);
   const IndexHandleChange = (event) => {
     setIndex(event.target.value);
   };
-  const YearHandleChange = (event) => {
-    setYear(event.target.value);
+  const yearHandle = (event, value) => {
+    setYear1(value);
+    setYear(value);
   };
+
   useEffect(() => {
-    console.log('render map component');
+    setYear1(indicadores.find((s)=>s.name===index).yearMax)
+    setYearmin(indicadores.find((s)=>s.name===index).yearMin)
+    setYearmax(indicadores.find((s)=>s.name===index).yearMax)
     pais(country);
     indexx(index);
-  });
+    iso3(iso33);
+    setYear(year1);
+  },[index,iso33]);
   return (
     <Card>
       <CardHeader
         action={(
           <FormControl style={{ minWidth: 200 }}>
-            <InputLabel htmlFor="grouped-native-select">INDICADORES</InputLabel>
+            <InputLabel>INDICATORS</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
               value={index}
               onChange={IndexHandleChange}
             >
               {Object.entries(indicadores).map((s) => (
-                <MenuItem value={s[1].nombre}>{s[1].titulo}</MenuItem>
+                <MenuItem value={s[1].name}>{s[1].titulo}</MenuItem>
               ))}
             </Select>
           </FormControl>
         )}
-        title="MONITOR DE INDICADORES SOCIO-ECONOMICOS"
+        title="DEMOCRACY INDICATORS | WORLD MAP"
       />
       <Divider />
       <CardContent>
-        {
-          true ? (
-            <Slider
-              value={year}
-              min={2010}
-              max={2021}
-              aria-labelledby="discrete-slider-always"
-              step={1}
-              marks
-              valueLabelDisplay="on"
-              onChange={YearHandleChange}
-            />
-          ) : null
-        }
+        <Slider 
+          aria-label="Restricted values"
+          defaultValue={year1}
+          value={year1}
+          aria-label="Default" 
+          valueLabelDisplay="true" 
+          valueLabelDisplay="on"
+          min={2000}
+          max={2021}
+          marks={true}
+          onChange = {yearHandle}
+        />
+
         <Box
           sx={{
-            height: 450,
             position: 'relative',
             display: 'flex'
           }}
+
         >
-          <Maps
+          <Map
+            setIso33={setIso33}
             setCountry={setCountry}
-            indicador={index}
+            setDataIndex={setDataIndex}
+            index={index}
             setTooltipContent={setContent}
-            year={2000}
+            year={year1}
           />
           <ReactTooltip
             html="true"

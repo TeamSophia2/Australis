@@ -72,43 +72,17 @@ const MediaList = (props) => {
   console.log(result);
   return (
     <Card {...props}>
-      <CardHeader title="LISTA DE PRINCIPALES MEDIOS" />
+      <CardHeader title="MEDIA OUTLET LIST PER COUNTRY" />
       <Divider />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell size="small" width="10%">
-                  NOMBRE
-                </TableCell>
-                <TableCell width="10%">
-                  NUMERO DE NOTICIAS
-                </TableCell>
-                <TableCell sortDirection="desc">
-                  <Tooltip
-                    enterDelay={300}
-                    title="Sort"
-                  >
-                    <TableSortLabel
-                      active
-                      direction="desc"
-                    >
-                      PAIS
-                    </TableSortLabel>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               {result.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell align="left" size="small">
                     {row.media_outlet}
                   </TableCell>
-                  <TableCell align="left">{row.count}</TableCell>
-                  <TableCell align="left">{row.country}</TableCell>
-
                 </TableRow>
               ))}
             </TableBody>

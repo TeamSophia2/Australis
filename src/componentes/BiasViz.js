@@ -77,8 +77,10 @@ const BiasViz = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="SESGOS DE GRUPOS" />
+      <CardHeader title="CULTURAL BIAS" />
       <Divider />
+      <Typography align='center'  >    .</Typography>
+      <Typography align='center'  >"Choose two social groups and a concept to observe if the country's media tends to associate the concept to a certain social group".</Typography>
       <CardContent>
         <Box
           sx={{
@@ -88,14 +90,15 @@ const BiasViz = (props) => {
 
           }}
         >
-                    <FormControl style={{ minWidth: 200}}>
-            <InputLabel htmlFor="grouped-native-select">País</InputLabel>
+        <FormControl style={{ minWidth: 200}}>
+            <InputLabel htmlFor="grouped-native-select">Country</InputLabel>
             <Select
               labelId="label"
               id="id"
-              value={10}
+              value={5}
               label="Topico"
             >
+              <MenuItem value={5}>Global</MenuItem>
               <MenuItem value={10}>Chile</MenuItem>
               <MenuItem value={20}>España</MenuItem>
               <MenuItem value={30}>Argentina</MenuItem>
@@ -105,8 +108,21 @@ const BiasViz = (props) => {
               <MenuItem value={70}>jamica</MenuItem>
             </Select>
           </FormControl>
+          <FormControl style={{ minWidth: 200}}>
+            <InputLabel htmlFor="grouped-native-select">year</InputLabel>
+            <Select
+              labelId="label"
+              id="id"
+              value={10}
+              label="Topico"
+            >
+              <MenuItem value={10}>2020</MenuItem>
+              <MenuItem value={20}>2021</MenuItem>
+              <MenuItem value={30}>2022</MenuItem>
+            </Select>
+          </FormControl>
         <FormControl style={{ minWidth: 200}}>
-            <InputLabel htmlFor="grouped-native-select">Topico de sesgo</InputLabel>
+            <InputLabel htmlFor="grouped-native-select">Concept</InputLabel>
             <Select
               labelId="label"
               id="id"
@@ -123,7 +139,7 @@ const BiasViz = (props) => {
             </Select>
           </FormControl>
           <FormControl style={{ minWidth: 200}}>
-            <InputLabel htmlFor="grouped-native-select">Grupos</InputLabel>
+            <InputLabel htmlFor="grouped-native-select">Social group 1</InputLabel>
             <Select
               labelId="label"
               id="id"
@@ -139,6 +155,24 @@ const BiasViz = (props) => {
               <MenuItem value={70}>empresarios-consumidores</MenuItem>
             </Select>
           </FormControl>
+          <FormControl style={{ minWidth: 200}}>
+            <InputLabel htmlFor="grouped-native-select">Social group 2</InputLabel>
+            <Select
+              labelId="label"
+              id="id"
+              value={10}
+              label="Topico"
+            >
+              <MenuItem value={10}>Género</MenuItem>
+              <MenuItem value={20}>coaliciones politicas</MenuItem>
+              <MenuItem value={30}>policia-civiles</MenuItem>
+              <MenuItem value={40}>imigrantes</MenuItem>
+              <MenuItem value={50}>etnias</MenuItem>
+              <MenuItem value={60}>religiones</MenuItem>
+              <MenuItem value={70}>empresarios-consumidores</MenuItem>
+            </Select>
+          </FormControl>
+          
           </Box>
           <Box
                   sx={{
@@ -151,7 +185,7 @@ const BiasViz = (props) => {
                 color="textPrimary"
                 variant="h3"
               >
-                Sesgo de violencia
+                violence between gender woman and male
               </Typography>
           </Box>
         <Box
