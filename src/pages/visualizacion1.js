@@ -52,7 +52,7 @@ const Vista1 = () => {
     };
     const fetchDataIdh = async () => {
       const result = await axios(
-        'http://localhost:8000/hdi');
+        'http://45.79.169.216:90/hdi');
       setData_idh(result.data);
     };
     fetchDataCountries();

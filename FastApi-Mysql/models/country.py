@@ -34,6 +34,16 @@ VULNERABILITY = Table("VULNERABILITY", meta, Column(
      Column("2009", DECIMAL),
      Column("2010", DECIMAL),
      Column("2011", DECIMAL),
-     Column("2012", DECIMAL)
+     Column("2012", DECIMAL),
+     Column("2013", DECIMAL),
+     Column("2014", DECIMAL),
+     Column("2015", DECIMAL),
+     Column("2016", DECIMAL),
+     Column("2017", DECIMAL),
+     Column("2018", DECIMAL),
+     Column("2019", DECIMAL),
+     Column("2020", DECIMAL),
+     Column("2021", DECIMAL),
+     Column("2022", DECIMAL)
      )
 
