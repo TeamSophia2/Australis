@@ -15,6 +15,12 @@ FREEDOM = Table("Freedom", meta, Column(
 
 DEMOCRACY = Table("Democracy", meta, Column(
     "ISO3", VARCHAR(3), primary_key=True),
+    Column("2014", DECIMAL),
+     Column("2015", DECIMAL),
+     Column("2016", DECIMAL),
+     Column("2017", DECIMAL),
+     Column("2018", DECIMAL),
+     Column("2019", DECIMAL),
      Column("2020", DECIMAL)
      )
 
