@@ -32,22 +32,22 @@ const Vista1 = () => {
 
     const fetchDataCountries = async () => {
       const result = await axios(
-        'http://localhost:8000/countries');
+        'http://45.79.169.216:90/countries');
       setData_countries(result.data);
     };
     const fetchDataFreedom = async () => {
       const result = await axios(
-        'http://localhost:8000/freedom');
+        'http://45.79.169.216:90/freedom');
       setData_freddom(result.data);
     };
     const fetchDataVulne = async () => {
       const result = await axios(
-        'http://localhost:8000/vulne');
+        'http://45.79.169.216:90/vulne');
       setData_vulne(result.data);
     };
     const fetchDataDemocracy = async () => {
       const result = await axios(
-        'http://localhost:8000/democracy');
+        'http://45.79.169.216:90/democracy');
       setData_democracy(result.data);
     };
     const fetchDataIdh = async () => {

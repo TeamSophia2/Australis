@@ -7,11 +7,8 @@ import {
   Divider,
   Table,
   TableCell,
-  TableHead,
   TableRow,
-  TableBody,
-  TableSortLabel,
-  Tooltip
+  TableBody
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 

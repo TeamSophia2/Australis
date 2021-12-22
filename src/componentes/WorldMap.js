@@ -72,8 +72,6 @@ const WorldMap = (
   const [iso33, setIso33] = useState('CHL');
   const [index, setIndex] = useState('noticias');
   const [year1, setYear1] = useState(2005);
-  const [yearmin, setYearmin] = useState(1990);
-  const [yearmax, setYearmax] = useState(2022);
   const IndexHandleChange = (event) => {
     setIndex(event.target.value);
   };
@@ -84,13 +82,12 @@ const WorldMap = (
 
   useEffect(() => {
     setYear1(indicadores.find((s)=>s.name===index).yearMax)
-    setYearmin(indicadores.find((s)=>s.name===index).yearMin)
-    setYearmax(indicadores.find((s)=>s.name===index).yearMax)
     pais(country);
     indexx(index);
     iso3(iso33);
     setYear(year1);
   },[index,iso33]);
+  console.log(dataIndex);
   return (
     <Card>
       <CardHeader

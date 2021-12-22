@@ -7,9 +7,6 @@ import {
   Typography,
   colors
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import { useState } from 'react';
 const CountryInformation = ({
   sx,
   pais,

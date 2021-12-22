@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import axios from 'axios';
-import { csv, json, text } from 'd3-fetch';
+import { csv } from 'd3-fetch';
 import { scaleLinear } from 'd3-scale';
 import {
   ComposableMap,
@@ -63,27 +63,26 @@ const Map = (props) => {
   const [data_democracy, setData_democracy] = useState([]);
   const [data_idh, setData_idh] = useState([]);
   const [data1, setData1] = useState([]);
-  const [year, setYear] = useState(2019);
 
   useEffect(() => {
     const fetchDataFreedom = async () => {
       const result = await axios(
-        'http://localhost:8000/freedom');
+        'http://45.79.169.216:90/freedom');
       setData_freddom(result.data);
     };
     const fetchDataVulne = async () => {
       const result = await axios(
-        'http://localhost:8000/vulne');
+        'http://45.79.169.216:90/vulne');
       setData_vulne(result.data);
     };
     const fetchDataDemocracy = async () => {
       const result = await axios(
-        'http://localhost:8000/democracy');
+        'http://45.79.169.216:90/democracy');
       setData_democracy(result.data);
     };
     const fetchDataIdh = async () => {
       const result = await axios(
-        'http://localhost:8000/hdi');
+        'http://45.79.169.216:90/hdi');
       setData_idh(result.data);
     };
     fetchDataIdh();
@@ -98,12 +97,7 @@ const Map = (props) => {
     props.setDataIndex([data_freddom,data_vulne,data_democracy,data_idh]);
 
   },[]);
-
-  useEffect(() => {
-    setYear(props.year);
-  },[props]);
-
-
+  
   return (
     <ComposableMap
       width="1000"
