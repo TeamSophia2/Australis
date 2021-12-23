@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from sqlalchemy.sql.functions import user
 from config.db import conn
-from models.country import COUNTRY, FREEDOM, DEMOCRACY, GINI, HDI, VULNERABILITY
+from models.country import COUNTRY, FREEDOM, DEMOCRACY, GINI, HDI, VULNERABILITY,media_outlet
 
 rutas= APIRouter()
 
@@ -29,3 +29,7 @@ def get_gini_index():
 @rutas.get("/vulne")
 def get_vulne_index():
     return conn.execute(VULNERABILITY.select()).fetchall()
+
+@rutas.get("/media_outlet")
+def get_media_outlet():
+    return conn.execute(media_outlet.select()).fetchall()
