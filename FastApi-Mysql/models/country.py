@@ -54,7 +54,7 @@ VULNERABILITY = Table("VULNERABILITY", meta, Column(
      )
 
 media_outlet = Table("Media_outlet", meta, Column(
-    "id", INT(11), primary_key=True),
+    "id", INT, primary_key=True),
      Column("country", VARCHAR(3)),
      Column("media_outlet", VARCHAR(45))
      )
