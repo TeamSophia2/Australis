@@ -72,7 +72,7 @@ const Map = (props) => {
             const d = props.data_vulne.find((s) => s.ISO3 === geo.properties.ISO_A3);
             const d1 = props.media_outlet.filter((s) => s.country === geo.properties.ISO_A3).length;
             const d2 = props.data_idh.find((s) => s.ISO3 === geo.properties.ISO_A3);
-            const d5 = props.data_freddom .find((s) => s.ISO3 === geo.properties.ISO_A3);
+            const d5 = props.data_freddom.find((s) => s.ISO3 === geo.properties.ISO_A3);
             const d4 = props.data_democracy.find((s) => s.ISO3.toUpperCase() === geo.properties.ISO_A3);
             let color = '#000000';
             let valor ="";
@@ -118,19 +118,18 @@ const Map = (props) => {
                 }}
                 onMouseEnter={() => {
                   const { NAME } = geo.properties;
-                  if (props.index=="noticias"){
-                    props.setTooltipContent(valor? `${NAME}`+" N° mediums: "+valor:"");
-                  
+                  if (props.index==="noticias"){
+                    props.setTooltipContent(valor? `${NAME} N° mediums: `+valor:'');
                   }
                   else{
-                    props.setTooltipContent(valor? `${NAME}`+" "+valor[props.year]:"");
+                    props.setTooltipContent(valor? `${NAME} `+valor[props.year]:'');
                    
                   }
                 }}
                 onClick={() => {
                   const { NAME } = geo.properties;
                   props.setCountry(`${NAME}`);
-                  props.setIso33(geo.properties.ISO_A3);
+                  props.setIso3(geo.properties.ISO_A3);
                 }}
                 onMouseLeave={() => {
                   props.setTooltipContent('');

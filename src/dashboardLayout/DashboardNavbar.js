@@ -1,24 +1,17 @@
-import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   AppBar,
-  Badge,
   Box,
   Button,
-  Hidden,
-  Tab,
-  Tabs,
   IconButton,
   Toolbar
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from '../mainLayout/Logo';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
-  const [notifications] = useState([]);
 
   return (
     <AppBar

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
@@ -25,8 +24,6 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Typography,
-  colors,
   TextField,
   Container,
   Grid

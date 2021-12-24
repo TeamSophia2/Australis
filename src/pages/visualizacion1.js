@@ -101,6 +101,7 @@ const Vista1 = () => {
                 setYear={setYear}
                 set_index={setIndex}
                 index={index}
+                iso3={iso3}
                 media_outlet={media_outlet}
                 data_freddom={data_freddom}
                 data_democracy={data_democracy}

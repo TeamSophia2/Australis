@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Slider from '@material-ui/core/Slider';
 import {
   Box,
   CardContent,
@@ -19,6 +18,7 @@ const WorldMap = (
     setPais,
     year,
     setIso3,
+    iso3,
     set_index,
     index,
     setYear,
@@ -29,8 +29,7 @@ const WorldMap = (
     data_vulne,
   }
 ) => {
-  const [indicadores,setIndicadores]= useState([
-    {
+  const indicadores = [{
       name: 'noticias',
       titulo: 'SOPHIA2',
       years: ["none"],
@@ -71,10 +70,9 @@ const WorldMap = (
       yearMax: '2019',
       dir: '/HDR2019.json'
     }
-  ]);
+  ];
   const [content, setContent] = useState('');
   const [country, setCountry] = useState('CHL');
-  const [iso33, setIso33] = useState('CHL');
 
   const IndexHandle = (event) => {
     set_index(event.target.value);
@@ -88,8 +86,8 @@ const WorldMap = (
   useEffect(() => {
     setYear(indicadores.find((s)=>s.name===index).yearMax)
     setPais(country);
-    setIso3(iso33);
-  },[index,iso33,indicadores.find((s)=>s.name===index).yearMax]);
+    setIso3(iso3);
+  },[index,iso3]);
 
   return (
     <Card>
@@ -113,7 +111,7 @@ const WorldMap = (
               value={year}
               onChange={YearHandle}
             >
-              {indicadores.find((s)=>s.name == index).years.map((s) => (
+              {indicadores.find((s)=>s.name === index).years.map((s) => (
                 <MenuItem value={s}>{s}</MenuItem>
               ))}
             </Select>
@@ -147,7 +145,7 @@ const WorldMap = (
         >
           <Map
             setTooltipContent={setContent}
-            setIso33={setIso33}
+            setIso3={setIso3}
             setCountry={setCountry}
             index={index}
             year={year}
