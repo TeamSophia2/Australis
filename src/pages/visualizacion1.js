@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
-import { csv, json, text } from 'd3-fetch';
 
 import {
   Box,
@@ -11,7 +10,6 @@ import {
 import MediaList from '../componentes/MediaList';
 import WorldMap from '../componentes/WorldMap';
 import CountryInformation from '../componentes/CountryInformation';
-import BiasIndicator from '../componentes/BiasViz';
 
 const Vista1 = () => {
   const [data_countries, setData_countries] = useState([]);
@@ -19,14 +17,11 @@ const Vista1 = () => {
   const [data_vulne, setData_vulne] = useState([]);
   const [data_democracy, setData_democracy] = useState([]);
   const [data_idh, setData_idh] = useState([]);
-  const [data1, setData1] = useState([]);
-  const [dataIndex, setDataIndex]= useState([]);
+  const [media_outlet,setMedia_outlet] = useState([]);
   const [pais, setPais] = useState('Chile');
   const [iso3, setIso3] = useState('CHL');
-  const [year, setYear] = useState('2018');
-  const [indice, setIndice] = useState('noticias');
-  const [numero, setNumero] = useState('23');
-  console.log(dataIndex);
+  const [year, setYear] = useState(2020);
+  const [index, setIndex] = useState('noticias');
 
   useEffect(() => {
 
@@ -55,23 +50,26 @@ const Vista1 = () => {
         'http://45.79.169.216:90/hdi');
       setData_idh(result.data);
     };
-    fetchDataCountries();
-    fetchDataCountries();
-    fetchDataIdh();
-    fetchDataFreedom();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    fetchDataIdh();
-    fetchDataFreedom();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    csv('/medios_caleuche.csv').then((d) => { setData1(d); });
-  },[]);
-  console.log(data_freddom);
-  console.log(data_vulne);
-  console.log(data_idh);
-  console.log(data_democracy);
+    const fetchMediaOulet = async () => {
+      const result = await axios(
+        'http://45.79.169.216:90/media_outlet');
+      setMedia_outlet(result.data);
+    };
 
+    fetchDataCountries();
+    fetchDataCountries();
+    fetchDataIdh();
+    fetchDataFreedom();
+    fetchDataVulne();
+    fetchDataDemocracy();
+    fetchDataIdh();
+    fetchMediaOulet();
+    fetchDataFreedom();
+    fetchDataVulne();
+    fetchDataDemocracy();
+    fetchMediaOulet();
+    },[]);
+    
   return (
     <>
       <Helmet>
@@ -98,12 +96,16 @@ const Vista1 = () => {
             >
               <WorldMap
                 year={year}
-                dataIn={setDataIndex}
-                pais={setPais}
-                iso3={setIso3}
+                setPais={setPais}
+                setIso3={setIso3}
                 setYear={setYear}
-                indexx={setIndice}
-                setNumero={setNumero}
+                set_index={setIndex}
+                index={index}
+                media_outlet={media_outlet}
+                data_freddom={data_freddom}
+                data_democracy={data_democracy}
+                data_idh={data_idh}                
+                data_vulne={data_vulne}
               />
             </Grid>
             <Grid
@@ -118,15 +120,17 @@ const Vista1 = () => {
                 pais={pais}
                 iso3={iso3}
                 year={year}
-                indice={indice}
-                numero={numero}
+                indice={index}
                 data_freddom={data_freddom}
                 data_democracy={data_democracy}
                 data_idh={data_idh}                
                 data_vulne={data_vulne}
                 data_countries={data_countries}
               />
-              <MediaList />
+              <MediaList
+              media_outlet={media_outlet}
+              iso3={iso3}
+              />
             </Grid>
             <Grid
               item

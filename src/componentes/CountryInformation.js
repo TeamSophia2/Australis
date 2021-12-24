@@ -7,6 +7,7 @@ import {
   Typography,
   colors
 } from '@material-ui/core';
+import ReactCountryFlag from "react-country-flag"
 const CountryInformation = ({
   sx,
   pais,
@@ -19,6 +20,7 @@ const CountryInformation = ({
   data_vulne,
   data_countries
 }) => {
+  const getCountryISO2 = require("country-iso-3-to-2");
   const indexs = [
     {
       index:'noticias',
@@ -76,9 +78,13 @@ const CountryInformation = ({
           >
             {data_countries.find((s)=>s.ISO3===iso3) ? data_countries.find((s)=>s.ISO3===iso3)["NAME"]: ""}
           </Typography>
+          <ReactCountryFlag countryCode= {getCountryISO2(iso3)}
+                            style={{
+                              fontSize: '7em'
+                          }} />
           <Typography
             color="textPrimary"
-            variant="body1"
+            variant="h1"
           >
             {indexs.find((s)=>s.index===indice).title}
             {' '}

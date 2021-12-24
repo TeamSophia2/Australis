@@ -1,6 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
-import axios from 'axios';
-import { csv } from 'd3-fetch';
+import React, { memo } from 'react';
 import { scaleLinear } from 'd3-scale';
 import {
   ComposableMap,
@@ -58,46 +56,6 @@ const colorScaleFreedom = (valor) => {
 
 const Map = (props) => {
 
-  const [data_freddom, setData_freddom] = useState([]);
-  const [data_vulne, setData_vulne] = useState([]);
-  const [data_democracy, setData_democracy] = useState([]);
-  const [data_idh, setData_idh] = useState([]);
-  const [data1, setData1] = useState([]);
-
-  useEffect(() => {
-    const fetchDataFreedom = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/freedom');
-      setData_freddom(result.data);
-    };
-    const fetchDataVulne = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/vulne');
-      setData_vulne(result.data);
-    };
-    const fetchDataDemocracy = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/democracy');
-      setData_democracy(result.data);
-    };
-    const fetchDataIdh = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/hdi');
-      setData_idh(result.data);
-    };
-    fetchDataIdh();
-    fetchDataFreedom();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    fetchDataIdh();
-    fetchDataFreedom();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    csv('/medios_caleuche.csv').then((d) => { setData1(d); });
-    props.setDataIndex([data_freddom,data_vulne,data_democracy,data_idh]);
-
-  },[]);
-  
   return (
     <ComposableMap
       width="1000"
@@ -111,11 +69,11 @@ const Map = (props) => {
       <ZoomableGroup zoom={1} center={[20, 0]}>
         <Geographies geography={geoUrl}>
           {({ geographies }) => geographies.map((geo) => {
-            const d = data_vulne.find((s) => s.ISO3 === geo.properties.ISO_A3);
-            const d1 = data1.find((s) => s.ISO3 === geo.properties.ISO_A3);
-            const d2 = data_idh.find((s) => s.ISO3 === geo.properties.ISO_A3);
-            const d5 = data_freddom .find((s) => s.ISO3 === geo.properties.ISO_A3);
-            const d4 = data_democracy.find((s) => s.ISO3.toUpperCase() === geo.properties.ISO_A3);
+            const d = props.data_vulne.find((s) => s.ISO3 === geo.properties.ISO_A3);
+            const d1 = props.media_outlet.filter((s) => s.country === geo.properties.ISO_A3).length;
+            const d2 = props.data_idh.find((s) => s.ISO3 === geo.properties.ISO_A3);
+            const d5 = props.data_freddom .find((s) => s.ISO3 === geo.properties.ISO_A3);
+            const d4 = props.data_democracy.find((s) => s.ISO3.toUpperCase() === geo.properties.ISO_A3);
             let color = '#000000';
             let valor ="";
             switch (props.index) {
@@ -140,7 +98,7 @@ const Map = (props) => {
                 valor = d4;
                 break;
               default:
-                    // code block
+                    //
             }
             return (
               <Geography
@@ -160,8 +118,14 @@ const Map = (props) => {
                 }}
                 onMouseEnter={() => {
                   const { NAME } = geo.properties;
-
-                  props.setTooltipContent(valor? `${NAME}`+" "+valor[props.year]:"");
+                  if (props.index=="noticias"){
+                    props.setTooltipContent(valor? `${NAME}`+" N° mediums: "+valor:"");
+                  
+                  }
+                  else{
+                    props.setTooltipContent(valor? `${NAME}`+" "+valor[props.year]:"");
+                   
+                  }
                 }}
                 onClick={() => {
                   const { NAME } = geo.properties;

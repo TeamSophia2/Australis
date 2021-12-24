@@ -2,36 +2,38 @@ import { useEffect, useState } from 'react';
 import Slider from '@material-ui/core/Slider';
 import {
   Box,
-  Button,
   CardContent,
   Card,
   Divider,
   CardHeader
 } from '@material-ui/core';
-/* import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'; */
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ReactTooltip from 'react-tooltip';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Map from './Map';
-/* eslint react/prop-types: 0 */
 
 const WorldMap = (
   {
-    dataIn,
-    pais,
+    setPais,
     year,
-    iso3,
-    indexx,
+    setIso3,
+    set_index,
+    index,
     setYear,
+    media_outlet,
+    data_freddom,
+    data_democracy,
+    data_idh,                
+    data_vulne,
   }
 ) => {
   const [indicadores,setIndicadores]= useState([
     {
       name: 'noticias',
       titulo: 'SOPHIA2',
+      years: ["none"],
       yearMin: '2020',
       yearMax: '2020',
       dir: '/medios_caleuche.csv'
@@ -39,14 +41,16 @@ const WorldMap = (
     {
       name: 'vulne',
       titulo: 'VULNERABILIDAD',
+      years: ["2012","2013","2014","2015","2016","2017"],
       yearMin: '1995',
-      yearMax: '2012',
+      yearMax: '2017',
       dir: '/vulnerability.csv'
   
     },
     {
       name: 'democracy',
       titulo: 'DEMOCRACIA',
+      years: ["2014","2015","2016","2017","2018","2019","2020"],
       yearMin: '2020',
       yearMax: '2020',
       dir: '/democracy_index.csv'
@@ -54,6 +58,7 @@ const WorldMap = (
     {
       name: 'freedom',
       titulo: 'LIBERTAD DE PRENSA',
+      years: [2020,2021],
       yearMin: '2020',
       yearMax: '2021',
       dir: '/Freedom_2021.csv'
@@ -61,65 +66,77 @@ const WorldMap = (
     {
       name: 'desarrollo',
       titulo: 'DESARROLLO HUMANO',
+      years: ["2019"],
       yearMin: '2019',
       yearMax: '2019',
       dir: '/HDR2019.json'
     }
   ]);
-  const [dataIndex, setDataIndex]= useState([]);
   const [content, setContent] = useState('');
   const [country, setCountry] = useState('CHL');
   const [iso33, setIso33] = useState('CHL');
-  const [index, setIndex] = useState('noticias');
-  const [year1, setYear1] = useState(2005);
-  const IndexHandleChange = (event) => {
-    setIndex(event.target.value);
+
+  const IndexHandle = (event) => {
+    set_index(event.target.value);
+
   };
-  const yearHandle = (event, value) => {
-    setYear1(value);
-    setYear(value);
+
+  const YearHandle = (event) => {
+    setYear(event.target.value);
   };
 
   useEffect(() => {
-    setYear1(indicadores.find((s)=>s.name===index).yearMax)
-    pais(country);
-    indexx(index);
-    iso3(iso33);
-    setYear(year1);
-  },[index,iso33]);
-  console.log(dataIndex);
+    setYear(indicadores.find((s)=>s.name===index).yearMax)
+    setPais(country);
+    setIso3(iso33);
+  },[index,iso33,indicadores.find((s)=>s.name===index).yearMax]);
+
   return (
     <Card>
       <CardHeader
+        title="DEMOCRACY INDICATORS | WORLD MAP"
         action={(
+          <div>
           <FormControl style={{ minWidth: 200 }}>
             <InputLabel>INDICATORS</InputLabel>
             <Select
               value={index}
-              onChange={IndexHandleChange}
+              onChange={IndexHandle}
             >
               {Object.entries(indicadores).map((s) => (
                 <MenuItem value={s[1].name}>{s[1].titulo}</MenuItem>
               ))}
             </Select>
+          </FormControl>    <FormControl style={{ minWidth: 200 }}>
+            <InputLabel>YEAR</InputLabel>
+            <Select
+              value={year}
+              onChange={YearHandle}
+            >
+              {indicadores.find((s)=>s.name == index).years.map((s) => (
+                <MenuItem value={s}>{s}</MenuItem>
+              ))}
+            </Select>
           </FormControl>
+          </div>       
         )}
-        title="DEMOCRACY INDICATORS | WORLD MAP"
-      />
+      > 
+      </CardHeader>
       <Divider />
       <CardContent>
-        <Slider 
+
+{/*         <Slider 
           aria-label="Restricted values"
-          defaultValue={year1}
-          value={year1}
+          defaultValue={year}
+          value={year}
           aria-label="Default" 
           valueLabelDisplay="true" 
           valueLabelDisplay="on"
           min={2000}
           max={2021}
           marks={true}
-          onChange = {yearHandle}
-        />
+          onChange = {YearHandle}
+        /> */}
 
         <Box
           sx={{
@@ -129,12 +146,16 @@ const WorldMap = (
 
         >
           <Map
+            setTooltipContent={setContent}
             setIso33={setIso33}
             setCountry={setCountry}
-            setDataIndex={setDataIndex}
             index={index}
-            setTooltipContent={setContent}
-            year={year1}
+            year={year}
+            media_outlet={media_outlet}
+            data_freddom={data_freddom}
+            data_democracy={data_democracy}
+            data_idh={data_idh}                
+            data_vulne={data_vulne}
           />
           <ReactTooltip
             html="true"
@@ -144,24 +165,6 @@ const WorldMap = (
 
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          p: 2
-        }}
-      />
-      <Box>
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
-          Overview
-        </Button>
-      </Box>
     </Card>
   );
 };
