@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
@@ -11,7 +11,7 @@ import MediaList from '../componentes/MediaList';
 import WorldMap from '../componentes/WorldMap';
 import CountryInformation from '../componentes/CountryInformation';
 
-const Vista1 = () => {
+const Vista1 = memo(() => {
   const [data_countries, setData_countries] = useState([]);
   const [data_freddom, setData_freddom] = useState([]);
   const [data_vulne, setData_vulne] = useState([]);
@@ -57,17 +57,11 @@ const Vista1 = () => {
     };
 
     fetchDataCountries();
-    fetchDataCountries();
     fetchDataIdh();
-    fetchDataFreedom();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    fetchDataIdh();
-    fetchMediaOulet();
-    fetchDataFreedom();
     fetchDataVulne();
     fetchDataDemocracy();
     fetchMediaOulet();
+    fetchDataFreedom();
     },[]);
     
   return (
@@ -146,6 +140,6 @@ const Vista1 = () => {
       </Box>
     </>
   );
-};
+});
 
 export default Vista1;

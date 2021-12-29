@@ -35,6 +35,26 @@ const arco2 = arc()
   .startAngle(large)
   .endAngle(Math.PI / 2);
 
+const data3 = [{
+  chile:[
+    {violencia:[
+      {Género:['man','woman',0]},
+      {policia_civiles:['policia','civiles',0]}]},
+    {corrupcion:[{
+      Género:['man','woman',0]}]},
+    {deporte:[{
+      Género:['man','woman',0]}]},
+    {actuacion:[{
+      Género:['man','woman',0]}]},
+    {libertad:[{
+      Género:['man','woman',0]}]},
+    {espectaculo:[{
+      Género:['man','woman',0]}]},
+    {politica:[{
+      Género:['man','woman',0]}]},
+  ]
+}];
+
 const BiasViz = (props) => {
   const labels = [
     {
@@ -80,7 +100,7 @@ const BiasViz = (props) => {
       <CardHeader title="CULTURAL BIAS" />
       <Divider />
       <Typography align='center'  >    .</Typography>
-      <Typography align='center'  >"Choose two social groups and a concept to observe if the country's media tends to associate the concept to a certain social group".</Typography>
+      <Typography align='center'  >"Please choose two social groups and a concept to observe if the country's media tends to associate the concept to a certain social group".</Typography>
       <CardContent>
         <Box
           sx={{

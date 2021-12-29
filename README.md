@@ -24,7 +24,7 @@ For deploy whit docker:
 
 #  Visualization in Australis
 
-Australis will have 3 mainly visualizations 
+Australis will have 3 mainly visualizations.
 
-the first visualization are a example that how use a maps maping country information 
+The first visualization are a example that how use a maps maping country information 
 related whit the amount of media indexed to caleuche server in practic efect 
