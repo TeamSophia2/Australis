@@ -8,9 +8,10 @@ import {
   colors
 } from '@material-ui/core';
 import ReactCountryFlag from "react-country-flag"
-import {countryISOMapping } from "../helpers/iso3toiso2"
+import {countryISOMapping } from "../../helpers/iso3toiso2"
 
 const CountryInformation = ({
+  //esta componente muestra indormacion de cada pais seleccionado segun cada año seleccionado 
   sx,
   pais,
   iso3,
@@ -22,45 +23,40 @@ const CountryInformation = ({
   data_vulne,
   data_countries
 }) => {
+
+  //se recupera por año indicador y pasis cada valor y se redondea para mostrar 
   const indexs = [
     {
       index:'noticias',
       title: 'Sophia2 index',
-      value: data_vulne.find((s)=>s.ISO3===iso3)? Math.round(data_vulne.find((s)=>s.ISO3===iso3)[2012]* 100) / 100 : "nada" ,
-      year: 2012,
+      value: data_vulne.find((s)=>s.ISO3===iso3)? Math.round(data_vulne.find((s)=>s.ISO3===iso3)[year]* 100) / 100 : "nada" ,
       color: colors.indigo[500]
     },
     {
       index:'vulne',
       title: 'Vulnerability',
-      value: data_vulne.find((s)=>s.ISO3===iso3)? Math.round(data_vulne.find((s)=>s.ISO3===iso3)[2012]* 100) / 100 : "nada",
-      year: 2012,
+      value: data_vulne.find((s)=>s.ISO3===iso3)? Math.round(data_vulne.find((s)=>s.ISO3===iso3)[year]* 100) / 100 : "nada",
       color: colors.indigo[500]
     },
     {
       index:'desarrollo',
-      title: 'Desarrollo',
-      value: data_idh.find((s)=>s.ISO3===iso3)? data_idh.find((s)=>s.ISO3===iso3)[2019] : "nada",
-      year: 2019,
-      color: colors.red[600]
+      title: 'Development',
+      value: data_idh.find((s)=>s.ISO3===iso3)? data_idh.find((s)=>s.ISO3===iso3)[year] : "nada",
+      color: colors.indigo[500]
     },
     {
       index:'freedom',
-      title: 'Libertad',
-      value: data_freddom.find((s)=>s.ISO3===iso3)? data_freddom.find((s)=>s.ISO3===iso3)[2021] : "nada",
-      year: 2021,
-      color: colors.red[600]
+      title: 'Freedom Press',
+      value: data_freddom.find((s)=>s.ISO3===iso3)? data_freddom.find((s)=>s.ISO3===iso3)[year] : "nada",
+      color: colors.indigo[500]
     },
     {
       index:'democracy',
-      title: 'Democracia',
-      value: data_democracy.find((s)=>s.ISO3===iso3)? data_democracy.find((s)=>s.ISO3===iso3)[2020] : "nada",
-      year: 2020,
-      color: colors.red[600]
+      title: 'Democracy',
+      value: data_democracy.find((s)=>s.ISO3===iso3)? data_democracy.find((s)=>s.ISO3===iso3)[year] : "nada",
+      color: colors.indigo[500]
     }
   ];
-
-  console.log();
 
   return (
     <Card {...sx}>
@@ -74,16 +70,22 @@ const CountryInformation = ({
           }}
         >
           <Typography
+            //nombre del pais
             color="textPrimary"
             variant="h1"
           >
             {data_countries.find((s)=>s.ISO3===iso3) ? data_countries.find((s)=>s.ISO3===iso3)["NAME"]: ""}
           </Typography>
-          <ReactCountryFlag countryCode= {countryISOMapping[iso3]}
-                            style={{
-                              fontSize: '7em'
-                          }} />
+
+          <ReactCountryFlag 
+            //componente para mostrar banderas
+            countryCode= {countryISOMapping[iso3]}
+            style={{
+              fontSize: '7em'
+              }} 
+          />
           <Typography
+            //muesta el componente selecionado 
             color="textPrimary"
             variant="h1"
           >
@@ -91,17 +93,12 @@ const CountryInformation = ({
             {' '}
             {year}
           </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h2"
-          >
-            {indexs.find((s)=>s.index===indice).value}
-          </Typography>
+ 
         </Box>
         <Box
-          border={0}
-          justifyContent="flex-end"
-          flexWrap="wrap"
+          border={1}
+          flexDirection="column"
+          //flexWrap="wrap"
           display="block"
           m={1}
           sx={{
@@ -116,28 +113,26 @@ const CountryInformation = ({
             value
           }) => (
             <Box
-              border={0}
-              justifyContent="flex-end"
+              border={1}
+              //justifyContent="flex-end"
+              flexDirection="row"
               flexWrap="wrap"
               key={title}
               display="block"
-              m={1}
               sx={{
-                textAlign: 'center'
+                display: 'flex',
+                justifyContent: 'space-between',
               }}
+              //m={1}
+        
             >
               <Typography
                 color="textPrimary"
-                variant="body1"
+                variant="h3"
               >
                 {title}
               </Typography>
-              <Typography
-                color="textPrimary"
-                variant="body1"
-              >
-                {year}
-              </Typography>
+            
               <Typography
                 style={{ color }}
                 variant="h2"

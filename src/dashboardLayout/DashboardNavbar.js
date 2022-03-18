@@ -4,11 +4,8 @@ import {
   AppBar,
   Box,
   Button,
-  IconButton,
   Toolbar
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import InputIcon from '@material-ui/icons/Input';
 import Logo from '../mainLayout/Logo';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
@@ -19,35 +16,25 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       {...rest}
     >
       <Toolbar>
-        <RouterLink to="/">
-          <Logo />
         
-        </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
-        
         <RouterLink to="/">
-        <Button variant="contained" color="primary"> Democracy Indicators | World Map</Button>
+        <Button variant="contained" color="primary"> Democracy Indicators </Button>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/app/dashboard2">
-        <Button variant="contained" color="primary">Cultural bias</Button>
+        <Button variant="contained" color="primary"> Cultural bias </Button>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/app/dashboard3">
-        <Button variant="contained" color="primary">Visibility in the media</Button>
+        <Button variant="contained" color="primary"> Visibility in the media </Button>
         </RouterLink>
     
         <Box sx={{ flexGrow: 1 }} />
-        <IconButton color="inherit">
-          <InputIcon />
-        </IconButton>
-        <Button variant="contained" color="primary">Contained</Button>
-        <IconButton
-          color="inherit"
-          onClick={onMobileNavOpen}
-        >
-          <MenuIcon />
-        </IconButton>
+        <RouterLink to="/">
+          <Logo />
+        </RouterLink>
+
       </Toolbar>
     </AppBar>
   );

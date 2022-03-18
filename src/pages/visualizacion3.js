@@ -1,11 +1,15 @@
 import { Helmet } from 'react-helmet';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+import { useState } from 'react';
 
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
+import Index from '../componentes/indice.js'
+
 
 import {
   Chart as ChartJS,
@@ -24,7 +28,6 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  TextField,
   Container,
   Grid
 } from '@material-ui/core';
@@ -39,53 +42,110 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top'
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
-};
+const labels = [,'2016', '2017', '2018', '2019', '2020','2021'];
+const Vista3 = () => {
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  const [att, setAtt] = useState('Religion');
+  const [country, setCountry] = useState('CHL');
+  const [infe,setInfe]=useState(true);
+  const [culpa,setCulpa]=useState(true);
+  const [autho,setAutho]=useState(true);
+  const [privi,setPrivi]=useState(true);
+  const [free,setFree]=useState(true);
+  const CountryHandle = (event) => {
+    setCountry(event.target.value);
+  };
+
+  const ATTHandle = (event) => {
+    setAtt(event.target.value);
+  };
+  const handleinfe = (event) => {
+    setInfe(event.target.checked);
+
+  };
+  const handleCulpa = (event) => {
+    setCulpa(event.target.checked);
+  };
+  const handleAutho = (event) => {
+    setAutho(event.target.checked);
+  };
+  const handleprivi = (event) => {
+    setPrivi(event.target.checked);
+  };
+  const handlefree = (event) => {
+    setFree(event.target.checked);
+  };
 
 const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      label: 'Inferiority',
+      data: labels.map(function numMultIdx(num, idx) {
+       if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
+        return null;
+       }
+       else{
+        return Index.[country][num].[att].Inferiority;
+        }
+        }),
+      borderColor: 'blue',
+      backgroundColor: 'blue',
     },
     {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      label: 'Culpability',
+      data: labels.map(function numMultIdx(num, idx) {
+      if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
+        return null;
+       }
+       else{
+        return Index.[country][num].[att].Culpability;
+        }
+        }),
+      borderColor: 'red',
+      backgroundColor: 'red',
     },
+    {
+      label: 'Authority',
+      data: labels.map(function numMultIdx(num, idx) {
+        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
+        return null;
+       }
+       else{
+        return Index.[country][num].[att].Authority;
+        }
+        }),
+      borderColor: 'green',
+      backgroundColor: 'green'
+    },
+    {
+      label: 'Privilege',
+
+      data: labels.map(function numMultIdx(num, idx) {
+        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
+        return null;
+       }
+       else{
+        return Index.[country][num].[att].Privilege;
+        }
+        }),
+      borderColor: 'orange',
+      backgroundColor: 'orange'
+    },    {
+      label: 'Freedom',
+      data: labels.map(function numMultIdx(num, idx) {
+        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
+          return null;
+         }
+        else{
+        return Index.[country][num].[att].Freedom;
+        }
+        }),
+      borderColor: 'cyan',
+      backgroundColor: 'cyan'
+    }
   ],
 };
-
-const Vista3 = () => {
-/*
-  const buscarNombre = (texto, evento) => {
-    const data = datosJson.find((llave) => llave.source_name == texto);
-    if (data) {
-        const datosFormateados = convierteDatos(data)
-        setDatos(datosFormateados);
-        setTextoFeedBack('Mostrado \'' + Object.keys(datosFormateados[0])[1] + '\' de \'' + texto + '\' en pantalla' );
-    }
-    else{
-        setTextoFeedBack('\'' + texto + '\' no se encuentra en nuestra base de datos');
-    }
-  }
-  */
   return (
     <>
       <Helmet>
@@ -103,38 +163,80 @@ const Vista3 = () => {
             spacing={3}
           >
             <Card>
-            <CardHeader title="linechart" />
+            <CardHeader title="LineChart Bias  " />
             <FormControl style={{ minWidth: 200}}>
 
-            <TextField
-          id="filled-search"
-          label="Search a source"
-          type="search"
-          variant="filled"
-        
-        />
-            <InputLabel htmlFor="grouped-native-select">País</InputLabel>
+            <InputLabel htmlFor="grouped-native-select">Country</InputLabel>
             <Select
-              labelId="label"
+              onChange={CountryHandle}
               id="id"
-              value={10}
+              value={country}
               label="Topico"
             >
-              <MenuItem value={10}>Chile</MenuItem>
-              <MenuItem value={20}>España</MenuItem>
-              <MenuItem value={30}>Argentina</MenuItem>
-              <MenuItem value={40}>Perú</MenuItem>
-              <MenuItem value={50}>Venezuela</MenuItem>
-              <MenuItem value={60}>Estados unidos</MenuItem>
-              <MenuItem value={70}>jamica</MenuItem>
-            </Select>
+              <MenuItem value={'CHL'}>Chile</MenuItem>
+              <MenuItem value={'ARG'}>Argentina</MenuItem>
+              <MenuItem value={'MEX'}>Mexico</MenuItem>
+              <MenuItem value={'ESP'}>Spain</MenuItem>
+              <MenuItem value={'USA'}>Usa</MenuItem>
+              <MenuItem value={'GBR'}>Uka</MenuItem>
+              <MenuItem value={'AUS'}>Australia</MenuItem>
+              <MenuItem value={'IRL'}>Irland</MenuItem>
+            </Select>           
           </FormControl>
+          <FormControl style={{ minWidth: 200}}>
+
+            <InputLabel htmlFor="grouped-native-select">ATT</InputLabel>
+            <Select
+              onChange={ATTHandle}
+              id="id"
+              value={att}
+              label="Topico"
+            >
+              <MenuItem value='Gender'>Gender</MenuItem>
+              <MenuItem value='Religion'>Religion</MenuItem>
+              <MenuItem value='SexualOrientation'>Sexual Orientation</MenuItem>
+ 
+            </Select>           
+            </FormControl>
+                  <FormControlLabel control={<Checkbox onChange={handleinfe} defaultChecked />} label="Inferiority" />
+                  <FormControlLabel control={<Checkbox onChange={handleCulpa}/>} label="Culpability" />
+                  <FormControlLabel control={<Checkbox onChange={handleAutho}defaultChecked />} label="Authority" />
+                  <FormControlLabel control={<Checkbox onChange={handleprivi}/>} label="Privilege" />
+                  <FormControlLabel control={<Checkbox onChange={handlefree}defaultChecked />} label="Freedom" />
             <Divider />
             <CardContent>
-            <Line options={options} data={data} />;
+              <Box>
+                <Grid
+                  lg={10}
+                  md={10}
+                  xl={9}
+                  xs={12}
+                >
+                <Line 
+                  options={{
+                    responsive: true,
+                    plugins: {
+                      title: {
+                        display: true,
+                        text: country+' - '+att,
+                      }
+                    },
+                    scales: {
+                      y: {
+                        max: 3,
+                        min: -3,
+                        ticks: {
+                            stepSize: 0.5
+                        }
+                      }
+                    }
+                  }}
+                  data={data} 
+                />
+                </Grid>
+              </Box>
             </CardContent>
             </Card>
-
           </Grid>
         </Container>
       </Box>

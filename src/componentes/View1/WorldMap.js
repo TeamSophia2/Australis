@@ -7,12 +7,19 @@ import {
   ZoomableGroup
 } from 'react-simple-maps';
 
+
+//se define y se recupera desde la carpera public el archivo json que contiene la topologia de los paises.
 const geoUrl = '/world-110m.json';
 
+//por cada indicador de deben definir funciones para coloriar el mapa que representen  calores para un dominio y colores para un  recorriodo  
+
+//funcion de color para el indicador vulnerabilidad
 const colorScaleVulne = scaleLinear()
   .domain([0.29, 0.68])
   .range(['#ffedea', '#ff5233']);
 
+
+//funcion de color para el indicador desarrollo
 const colorScaleDesarrollo = (valor) => {
   if (valor > 0.8) {
     return ('#003152');
@@ -22,6 +29,8 @@ const colorScaleDesarrollo = (valor) => {
     return ('#00bfad');
   } return ('#A8ECD5');
 };
+
+//funcion de color para el indicador democracia
 const colorScaleDemocracy = (valor) => {
   if (valor > 90) {
     return ('#00681C');
@@ -44,6 +53,7 @@ const colorScaleDemocracy = (valor) => {
   } return ('#A8ECD5');
 };
 
+//funcion de color para el indicador  libretad de prensa
 const colorScaleFreedom = (valor) => {
   if (valor > 159) {
     return '#000000';
@@ -54,9 +64,13 @@ const colorScaleFreedom = (valor) => {
   } return 'yellow';
 };
 
-const Map = (props) => {
+
+//componente mapa que sostiene el lienzo donde de dibujara y coloreará el mapa 
+//recibe props desde el componente padre, con datos para colorear  el mapa (indicador, año y data )
+const WorldMap = (props) => {
 
   return (
+
     <ComposableMap
       width="1000"
       height="600"
@@ -69,6 +83,7 @@ const Map = (props) => {
       <ZoomableGroup zoom={1} center={[20, 0]}>
         <Geographies geography={geoUrl}>
           {({ geographies }) => geographies.map((geo) => {
+            //por cada pais y indicador se define un contante d a colorear  
             const d = props.data_vulne.find((s) => s.ISO3 === geo.properties.ISO_A3);
             const d1 = props.media_outlet.filter((s) => s.country === geo.properties.ISO_A3).length;
             const d2 = props.data_idh.find((s) => s.ISO3 === geo.properties.ISO_A3);
@@ -76,6 +91,7 @@ const Map = (props) => {
             const d4 = props.data_democracy.find((s) => s.ISO3.toUpperCase() === geo.properties.ISO_A3);
             let color = '#000000';
             let valor ="";
+            //se usa swisht para colorear cada pais con el color que  le corresponda segun la funcion de coloreo  
             switch (props.index) {
               case 'desarrollo':
                 color = d2 ? colorScaleDesarrollo(d2[props.year]) : '#000000';
@@ -98,7 +114,6 @@ const Map = (props) => {
                 valor = d4;
                 break;
               default:
-                    //
             }
             return (
               <Geography
@@ -127,11 +142,12 @@ const Map = (props) => {
                   }
                 }}
                 onClick={() => {
+                  //funcion que serea el nombre y ISO de cada pais seleccionado
                   const { NAME } = geo.properties;
                   props.setCountry(`${NAME}`);
                   props.setIso3(geo.properties.ISO_A3);
                 }}
-                onMouseLeave={() => {
+                onMouseLeave={() => {  
                   props.setTooltipContent('');
                 }}
               />
@@ -142,4 +158,4 @@ const Map = (props) => {
     </ComposableMap>
   );
 };
-export default memo(Map);
+export default memo(WorldMap);

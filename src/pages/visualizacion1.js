@@ -7,9 +7,9 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import MediaList from '../componentes/MediaList';
-import WorldMap from '../componentes/WorldMap';
-import CountryInformation from '../componentes/CountryInformation';
+import CountryInformation from '../componentes/View1/CountryInformation';
+import DescriptionViz from '../componentes/DescriptionViz';
+import WorldMapCard from '../componentes/View1/WorldMapCard';
 
 const Vista1 = memo(() => {
   const [data_countries, setData_countries] = useState([]);
@@ -69,26 +69,38 @@ const Vista1 = memo(() => {
       <Helmet>
         <title>Australis | Sophia2 </title>
       </Helmet>
+      
       <Box
         sx={{
           backgroundColor: 'background.default',
           minHeight: '100%',
-          py: 3
+          py: 1
         }}
       >
         <Container maxWidth={false}>
+
           <Grid
-            container
-            spacing={3}
+            container spacing={1}
           >
+               <Grid
+              item
+              lg={12}
+              md={12}
+              xl={12}
+              xs={12}
+            > 
+            <DescriptionViz
+                mensaje="On the map you can view and select the main democratic indicators of each country in the year you want to see."
+                />
+            </Grid>
              <Grid
               item
               lg={8}
               md={12}
               xl={9}
               xs={12}
-            >
-              <WorldMap
+            > 
+              <WorldMapCard
                 year={year}
                 setPais={setPais}
                 setIso3={setIso3}
@@ -121,10 +133,6 @@ const Vista1 = memo(() => {
                 data_idh={data_idh}                
                 data_vulne={data_vulne}
                 data_countries={data_countries}
-              />
-              <MediaList
-              media_outlet={media_outlet}
-              iso3={iso3}
               />
             </Grid>
             <Grid

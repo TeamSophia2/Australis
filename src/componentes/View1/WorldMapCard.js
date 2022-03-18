@@ -11,9 +11,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Map from './Map';
+import WorldMap from './WorldMap';
 
-const WorldMap = (
+const WorldMapCard = (
   {
     setPais,
     year,
@@ -32,7 +32,7 @@ const WorldMap = (
   const indicadores = [{
       name: 'noticias',
       titulo: 'SOPHIA2',
-      years: ["none"],
+      years: ["2020"],
       yearMin: '2020',
       yearMax: '2020',
       dir: '/medios_caleuche.csv'
@@ -92,8 +92,7 @@ const WorldMap = (
   return (
     <Card>
       <CardHeader
-        title="DEMOCRACY INDICATORS | WORLD MAP"
-        action={(
+        title={(
           <div>
           <FormControl style={{ minWidth: 200 }}>
             <InputLabel>INDICATORS</InputLabel>
@@ -102,17 +101,19 @@ const WorldMap = (
               onChange={IndexHandle}
             >
               {Object.entries(indicadores).map((s) => (
-                <MenuItem value={s[1].name}>{s[1].titulo}</MenuItem>
+                <MenuItem value={s[1].name} key={s[1].name}  >{s[1].titulo}</MenuItem>
               ))}
             </Select>
-          </FormControl>    <FormControl style={{ minWidth: 200 }}>
+          </FormControl>
+          
+          <FormControl style={{ minWidth: 200 }}>
             <InputLabel>YEAR</InputLabel>
             <Select
               value={year}
               onChange={YearHandle}
             >
               {indicadores.find((s)=>s.name === index).years.map((s) => (
-                <MenuItem value={s}>{s}</MenuItem>
+                <MenuItem value={s} key={s}  >{s}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -122,20 +123,6 @@ const WorldMap = (
       </CardHeader>
       <Divider />
       <CardContent>
-
-{/*         <Slider 
-          aria-label="Restricted values"
-          defaultValue={year}
-          value={year}
-          aria-label="Default" 
-          valueLabelDisplay="true" 
-          valueLabelDisplay="on"
-          min={2000}
-          max={2021}
-          marks={true}
-          onChange = {YearHandle}
-        /> */}
-
         <Box
           sx={{
             position: 'relative',
@@ -143,10 +130,15 @@ const WorldMap = (
           }}
 
         >
-          <Map
-            setTooltipContent={setContent}
-            setIso3={setIso3}
-            setCountry={setCountry}
+          <WorldMap
+            //valores que exporta el mapa
+            setTooltipContent={setContent}//setea el valor del Tooltips component
+            setIso3={setIso3}  //retorna el ISO3 del pais cliqueado
+            setCountry={setCountry}//retorna el nombre del pais cliqueado
+            //valores que recibe el mapa ,index es identificadore del indice que se desea colorear
+            //year el año del que se desea colorear en el mapa
+            //media-outet se una variable que tiene los paises y sus medios
+            //data corresponden a los datos de cada indice recuperados desde la base de dato. y que escalan hasta esta componente
             index={index}
             year={year}
             media_outlet={media_outlet}
@@ -155,9 +147,7 @@ const WorldMap = (
             data_idh={data_idh}                
             data_vulne={data_vulne}
           />
-          <ReactTooltip
-            html="true"
-          >
+          <ReactTooltip>
             {content}
           </ReactTooltip>
 
@@ -167,4 +157,4 @@ const WorldMap = (
   );
 };
 
-export default WorldMap;
+export default WorldMapCard;
