@@ -15,7 +15,6 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 const MediaList = (props) => {
   //esta componente muestra una lista con los princiales medios de cada pais
 
-  console.log('Render tabla');
   const result = props.media_outlet.filter((row) => row.country === props.iso3);
   return (
     <Card {...props}>

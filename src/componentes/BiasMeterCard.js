@@ -3,7 +3,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Medidor from './Medidor';
+import BiasMeter from './BiasMeter';
 import {
   Box,
   Card,
@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import Index from './indice.js'
 
-const BiasViz = (props) => {
+const BiasMeterCard = (props) => {
 
   const [year, setYear] = useState(2020);
   const [country, setCountry] = useState('CHL');
@@ -91,7 +91,6 @@ const BiasViz = (props) => {
               </Typography>
           <Box 
               border={1}
-              //justifyContent="flex-end"
               flexDirection="row"
               flexWrap="wrap"
               display="block"
@@ -99,13 +98,12 @@ const BiasViz = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              //m={1}
             >
-            <Medidor att="Inferiority" valor={Index.[country][year].Gender.Inferiority} grupo1="Woman - Men" grupo2="mujeres" ></Medidor>
-            <Medidor att="Culpability" valor={Index.[country][year].Gender.Culpability}  grupo1="Woman - Men" grupo2="mujeres" ></Medidor>
-            <Medidor att="Authority" valor={Index.[country][year].Gender.Authority} grupo1="Woman - Men" grupo2="mujeres" ></Medidor>
-            <Medidor att="Privilege" valor={Index.[country][year].Gender.Privilege}  grupo1="Woman - Men" grupo2="mujeres" ></Medidor>
-            <Medidor att="Freedom" valor={Index.[country][year].Gender.Freedom}  grupo1="Woman - Men" grupo2="mujeres" ></Medidor>
+            <BiasMeter concept="Inferiority" value={Index.[country][year].Gender.Inferiority} groups="Woman - Men" ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index.[country][year].Gender.Culpability}  groups="Woman - Men"  ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index.[country][year].Gender.Authority} groups="Woman - Men" ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index.[country][year].Gender.Privilege}  groups="Woman - Men"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index.[country][year].Gender.Freedom}  groups="Woman - Men"  ></BiasMeter>
             
         </Box>
         <Typography
@@ -116,7 +114,6 @@ const BiasViz = (props) => {
               </Typography>
         <Box 
               border={1}
-              //justifyContent="flex-end"
               flexDirection="row"
               flexWrap="wrap"
               display="block"
@@ -124,13 +121,12 @@ const BiasViz = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              //m={1}
             >
-            <Medidor att="Inferiority" valor={Index.[country][year].Religion.Inferiority} grupo1="Christianity - Islam" grupo2="mujeres" ></Medidor>
-            <Medidor att="Culpability" valor={Index.[country][year].Religion.Culpability}  grupo1="Christianity - Islam" grupo2="mujeres" ></Medidor>
-            <Medidor att="Authority" valor={Index.[country][year].Religion.Authority} grupo1="Christianity - Islam" grupo2="mujeres" ></Medidor>
-            <Medidor att="Privilege" valor={Index.[country][year].Religion.Privilege}  grupo1="Christianity - Islam" grupo2="mujeres" ></Medidor>
-            <Medidor att="Freedom" valor={Index.[country][year].Religion.Freedom}  grupo1="Christianity - Islam" grupo2="mujeres" ></Medidor>
+            <BiasMeter concept="Inferiority" value={Index.[country][year].Religion.Inferiority} groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index.[country][year].Religion.Culpability}  groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index.[country][year].Religion.Authority} groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index.[country][year].Religion.Privilege}  groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index.[country][year].Religion.Freedom}  groups="Christianity - Islam"  ></BiasMeter>
             
         </Box>
         <Typography
@@ -141,7 +137,6 @@ const BiasViz = (props) => {
               </Typography>
         <Box 
               border={1}
-              //justifyContent="flex-end"
               flexDirection="row"
               flexWrap="wrap"
               display="block"
@@ -149,14 +144,13 @@ const BiasViz = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
               }}
-              //m={1}
             >
             
-            <Medidor att="Inferiority" valor={Index.[country][year].SexualOrientation.Inferiority} grupo1="Homo  - Hetero" grupo2="mujeres" ></Medidor>
-            <Medidor att="Culpability" valor={Index.[country][year].SexualOrientation.Culpability}  grupo1="Homo  - Hetero"grupo2="mujeres" ></Medidor>
-            <Medidor att="Authority" valor={Index.[country][year].SexualOrientation.Authority} grupo1="Homo  - Hetero" grupo2="mujeres" ></Medidor>
-            <Medidor att="Privilege" valor={Index.[country][year].SexualOrientation.Privilege}  grupo1="Homo  - Hetero" grupo2="mujeres" ></Medidor>
-            <Medidor att="Freedom" valor={Index.[country][year].SexualOrientation.Freedom}  grupo1="Homo  - Hetero" grupo2="mujeres" ></Medidor>
+            <BiasMeter concept="Inferiority" value={Index.[country][year].SexualOrientation.Inferiority} groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index.[country][year].SexualOrientation.Culpability}  groups="Homo - Hetero" ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index.[country][year].SexualOrientation.Authority} groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index.[country][year].SexualOrientation.Privilege}  groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index.[country][year].SexualOrientation.Freedom}  groups="Homo - Hetero"  ></BiasMeter>
             
         </Box>
 
@@ -167,4 +161,4 @@ const BiasViz = (props) => {
   );
 };
 
-export default BiasViz;
+export default BiasMeterCard;

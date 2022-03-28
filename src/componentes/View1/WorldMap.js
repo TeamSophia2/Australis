@@ -68,6 +68,7 @@ const colorScaleFreedom = (valor) => {
 //componente mapa que sostiene el lienzo donde de dibujara y coloreará el mapa 
 //recibe props desde el componente padre, con datos para colorear  el mapa (indicador, año y data )
 const WorldMap = (props) => {
+  console.log(props.data_democracy);
 
   return (
 

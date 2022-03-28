@@ -11,6 +11,10 @@ import CountryInformation from '../componentes/View1/CountryInformation';
 import DescriptionViz from '../componentes/DescriptionViz';
 import WorldMapCard from '../componentes/View1/WorldMapCard';
 
+const fetchData = async(url,setdata) => {
+    const result = await axios(url);
+    setdata(result.data) 
+}  
 const Vista1 = memo(() => {
   const [data_countries, setData_countries] = useState([]);
   const [data_freddom, setData_freddom] = useState([]);
@@ -23,45 +27,13 @@ const Vista1 = memo(() => {
   const [year, setYear] = useState(2020);
   const [index, setIndex] = useState('noticias');
 
-  useEffect(() => {
-
-    const fetchDataCountries = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/countries');
-      setData_countries(result.data);
-    };
-    const fetchDataFreedom = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/freedom');
-      setData_freddom(result.data);
-    };
-    const fetchDataVulne = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/vulne');
-      setData_vulne(result.data);
-    };
-    const fetchDataDemocracy = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/democracy');
-      setData_democracy(result.data);
-    };
-    const fetchDataIdh = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/hdi');
-      setData_idh(result.data);
-    };
-    const fetchMediaOulet = async () => {
-      const result = await axios(
-        'http://45.79.169.216:90/media_outlet');
-      setMedia_outlet(result.data);
-    };
-
-    fetchDataCountries();
-    fetchDataIdh();
-    fetchDataVulne();
-    fetchDataDemocracy();
-    fetchMediaOulet();
-    fetchDataFreedom();
+  useEffect(() => {  
+    fetchData('http://45.79.169.216:90/countries',setData_countries)
+    fetchData('http://45.79.169.216:90/freedom',setData_freddom)
+    fetchData('http://45.79.169.216:90/vulne',setData_vulne)
+    fetchData('http://45.79.169.216:90/democracy',setData_democracy)
+    fetchData('http://45.79.169.216:90/hdi',setData_idh)
+    fetchData('http://45.79.169.216:90/media_outlet',setMedia_outlet)
     },[]);
     
   return (

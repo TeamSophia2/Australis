@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 import { Line } from 'react-chartjs-2';
 import { useState } from 'react';
-
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -9,8 +8,8 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import Index from '../componentes/indice.js'
-
-
+import {iso3toname} from "../helpers/iso3toname"
+import annotationPlugin from 'chartjs-plugin-annotation';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,8 +19,8 @@ import {
   Title,
   Tooltip,
   Legend,
+  annotation
 } from 'chart.js';
-
 import {
   Box,
   Card,
@@ -29,8 +28,10 @@ import {
   CardHeader,
   Divider,
   Container,
+  CardActions,
   Grid
 } from '@material-ui/core';
+import { brown, purple, yellow } from '@material-ui/core/colors';
 
 ChartJS.register(
   CategoryScale,
@@ -39,205 +40,265 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  annotationPlugin
 );
 
-const labels = [,'2016', '2017', '2018', '2019', '2020','2021'];
-const Vista3 = () => {
+//recupera la lista de paises desde el objeto de entrada formato iso3
+const countries = Object.keys(Index);
+//se definen los conceptos que se desean graficar
+const concepts =["Inferiority","Culpability","Authority","Privilege","Freedom"]
 
+const data = (label,color,country,att) =>{{
+  return {
+    label:label,
+    data:Object.keys(Index[country]).map((year) => {            
+                if (typeof(Index[country][year])=="undefined"){ 
+                  return null;
+                  }
+                else 
+                {
+                  return Index[country][year][att][label];
+                }
+                }),
+    borderColor: color,
+    backgroundColor: color,
+    }
+  }
+}
+
+const data2 = (label,color,country,att,concept) =>{{
+  return {
+    label:label,
+    data:Object.keys(Index[country]).map((year) => {  
+                console.log(year);
+                console.log(label);       
+                if (typeof(Index[label][year])=="undefined"){ 
+                  return null;
+                  }
+                else 
+                {
+                  console.log(Index[label][year][att]);
+                  return Index[label][year][att][concept];
+                }
+                }),
+    borderColor: color,
+    backgroundColor: color,
+    }
+  }
+}
+//esta funcion torna una lista de funciones
+const dataset = (lista,country,att) =>{
+  const labels =  Object.keys(Index[country])
+  const color=["blue","red","green","orange","cyan","purple","brown","yellow"];
+  return{
+    labels,
+    datasets:lista.map((m,i)=>{
+      return data(m,color[i],country,att)
+    })
+  } 
+};
+const dataset2 = (lista,country,att,concept) =>{
+  const labels =  Object.keys(Index[country])
+  const color=["blue","red","green","orange","cyan","purple","brown","yellow"];
+  return{
+    labels,
+    datasets:lista.map((pais,i)=>{
+      return data2(pais,color[i],country,att,concept)
+    })
+  } 
+};
+//funcion para configurar el gráfico
+const options = (country,att) => {
+  return{ 
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: country+' - '+att,
+      },
+      annotation: {
+        annotations: [{
+          type: 'box',
+          yMin: 3,
+          yMax: 2,
+          borderColor: 'rgba(255, 51, 51, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 51, 51, 0.25)',
+        },
+        {
+          type: 'box',
+          yMin: 2,
+          yMax: 1,
+          borderColor: 'rgba(255, 128, 0, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 128, 0, 0.25)',
+        },
+        {
+          type: 'box',
+          yMin: 0,
+          yMax: 1,
+          borderColor: 'rgba(255, 255, 0, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 255, 0, 0.25)',
+        },
+        {
+          type: 'box',
+          yMin: 0,
+          yMax: -1,
+          borderColor: 'rgba(255, 255, 0, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 255, 0, 0.25)',
+        },
+        {
+          type: 'box',
+          yMin: -1,
+          yMax: -2,
+          borderColor: 'rgba(255, 128, 0, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 128, 0, 0.25)',
+        },
+        {
+          type: 'box',
+          yMin: -2,
+          yMax: -3,
+          borderColor: 'rgba(255, 51, 51, 0.25)',
+          borderWidth: 0,
+          backgroundColor: 'rgba(255, 51, 51, 0.25)',
+        },
+         {
+          type: 'line',
+          yMin: 0,
+          yMax: 0,
+          borderColor: 'black',
+          borderWidth: 2,
+        }
+      ],
+      }
+      
+    },
+    scales: {
+      y: {
+        max: 3,
+        min: -3,
+        ticks: {
+          stepSize: 0.5
+        },
+      }
+    },
+  }
+}
+
+const Vista3 = () => {
   const [att, setAtt] = useState('Religion');
   const [country, setCountry] = useState('CHL');
-  const [infe,setInfe]=useState(true);
-  const [culpa,setCulpa]=useState(true);
-  const [autho,setAutho]=useState(true);
-  const [privi,setPrivi]=useState(true);
-  const [free,setFree]=useState(true);
+  const [concept, setConcept] = useState('Inferiority');
+
   const CountryHandle = (event) => {
     setCountry(event.target.value);
   };
 
   const ATTHandle = (event) => {
     setAtt(event.target.value);
-  };
-  const handleinfe = (event) => {
-    setInfe(event.target.checked);
+  }
+  const ConceptHandle = (event) => {
+    setConcept(event.target.value);
+  }
+  ;
 
-  };
-  const handleCulpa = (event) => {
-    setCulpa(event.target.checked);
-  };
-  const handleAutho = (event) => {
-    setAutho(event.target.checked);
-  };
-  const handleprivi = (event) => {
-    setPrivi(event.target.checked);
-  };
-  const handlefree = (event) => {
-    setFree(event.target.checked);
-  };
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Inferiority',
-      data: labels.map(function numMultIdx(num, idx) {
-       if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
-        return null;
-       }
-       else{
-        return Index.[country][num].[att].Inferiority;
-        }
-        }),
-      borderColor: 'blue',
-      backgroundColor: 'blue',
-    },
-    {
-      label: 'Culpability',
-      data: labels.map(function numMultIdx(num, idx) {
-      if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
-        return null;
-       }
-       else{
-        return Index.[country][num].[att].Culpability;
-        }
-        }),
-      borderColor: 'red',
-      backgroundColor: 'red',
-    },
-    {
-      label: 'Authority',
-      data: labels.map(function numMultIdx(num, idx) {
-        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
-        return null;
-       }
-       else{
-        return Index.[country][num].[att].Authority;
-        }
-        }),
-      borderColor: 'green',
-      backgroundColor: 'green'
-    },
-    {
-      label: 'Privilege',
-
-      data: labels.map(function numMultIdx(num, idx) {
-        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
-        return null;
-       }
-       else{
-        return Index.[country][num].[att].Privilege;
-        }
-        }),
-      borderColor: 'orange',
-      backgroundColor: 'orange'
-    },    {
-      label: 'Freedom',
-      data: labels.map(function numMultIdx(num, idx) {
-        if (typeof(Index.[country][num])=="undefined" || typeof(Index.[country][num].[att])=="undefined") {
-          return null;
-         }
-        else{
-        return Index.[country][num].[att].Freedom;
-        }
-        }),
-      borderColor: 'cyan',
-      backgroundColor: 'cyan'
-    }
-  ],
-};
   return (
     <>
       <Helmet>
         <title>Australis | Sophia2 </title>
       </Helmet>
-      <Box
+      <Box 
         sx={{
+          margin:"auto",
           backgroundColor: 'background.default',
-          minHeight: '100%',
-          py: 3
+          minHeight: '50%',
+          py: 3,
+          maxWidth:800,         
+
         }}
       >
         <Container maxWidth={false}>
-          <Grid
-            spacing={3}
-          >
-            <Card>
-            <CardHeader title="LineChart Bias  " />
-            <FormControl style={{ minWidth: 200}}>
-
+          <Card>
+          <CardHeader 
+            title="Temporal evolution of bias indicators, choose a country and group-tag and you will see the evolution of each concept in each year  "/>
+          <Divider />
+          <CardActions>
+          <FormControl style={{ minWidth: 200}}>
             <InputLabel htmlFor="grouped-native-select">Country</InputLabel>
-            <Select
-              onChange={CountryHandle}
-              id="id"
-              value={country}
-              label="Topico"
-            >
-              <MenuItem value={'CHL'}>Chile</MenuItem>
-              <MenuItem value={'ARG'}>Argentina</MenuItem>
-              <MenuItem value={'MEX'}>Mexico</MenuItem>
-              <MenuItem value={'ESP'}>Spain</MenuItem>
-              <MenuItem value={'USA'}>Usa</MenuItem>
-              <MenuItem value={'GBR'}>Uka</MenuItem>
-              <MenuItem value={'AUS'}>Australia</MenuItem>
-              <MenuItem value={'IRL'}>Irland</MenuItem>
+            <Select onChange={CountryHandle} id="id" value={country} label="Topico">
+              {countries.map((s)=>{
+                return<MenuItem value={s}>{iso3toname[s]}</MenuItem>
+                })}
             </Select>           
           </FormControl>
           <FormControl style={{ minWidth: 200}}>
-
-            <InputLabel htmlFor="grouped-native-select">ATT</InputLabel>
-            <Select
-              onChange={ATTHandle}
-              id="id"
-              value={att}
-              label="Topico"
-            >
+            <InputLabel htmlFor="grouped-native-select">Group Tag</InputLabel>
+            <Select onChange={ATTHandle} id="id" value={att} label="Topico">
               <MenuItem value='Gender'>Gender</MenuItem>
               <MenuItem value='Religion'>Religion</MenuItem>
               <MenuItem value='SexualOrientation'>Sexual Orientation</MenuItem>
- 
             </Select>           
-            </FormControl>
-                  <FormControlLabel control={<Checkbox onChange={handleinfe} defaultChecked />} label="Inferiority" />
-                  <FormControlLabel control={<Checkbox onChange={handleCulpa}/>} label="Culpability" />
-                  <FormControlLabel control={<Checkbox onChange={handleAutho}defaultChecked />} label="Authority" />
-                  <FormControlLabel control={<Checkbox onChange={handleprivi}/>} label="Privilege" />
-                  <FormControlLabel control={<Checkbox onChange={handlefree}defaultChecked />} label="Freedom" />
-            <Divider />
-            <CardContent>
-              <Box>
-                <Grid
-                  lg={10}
-                  md={10}
-                  xl={9}
-                  xs={12}
-                >
-                <Line 
-                  options={{
-                    responsive: true,
-                    plugins: {
-                      title: {
-                        display: true,
-                        text: country+' - '+att,
-                      }
-                    },
-                    scales: {
-                      y: {
-                        max: 3,
-                        min: -3,
-                        ticks: {
-                            stepSize: 0.5
-                        }
-                      }
-                    }
-                  }}
-                  data={data} 
+          </FormControl> 
+
+          </CardActions>
+          
+          <CardContent>
+            <Box>
+                <Line
+                  options={options(iso3toname[country],att)}
+                  data={dataset(concepts,country,att)} 
                 />
-                </Grid>
               </Box>
             </CardContent>
             </Card>
-          </Grid>
+        </Container>
+      </Box>
+      <Box
+        sx={{
+          margin:"auto",
+          backgroundColor: 'background.default',
+          minHeight: '100%',
+          py: 3,
+          maxWidth:800
+        }}
+      >
+        <Container maxWidth={false}>
+          <Card>
+          <CardHeader 
+            title="Temporal evolution of bias indicators: Choose a concept and group-tag, you will see the evolution of the concept by each country per year"/>
+          <Divider /> 
+          <CardActions>
+              <FormControl style={{ minWidth: 200}}>
+            <InputLabel htmlFor="grouped-native-select">Concept</InputLabel>
+            <Select onChange={ConceptHandle} id="id" value={concept} label="Topico">
+              {concepts.map((s)=>{
+                return<MenuItem value={s}>{s}</MenuItem>
+                })}
+            </Select>
+                   
+          </FormControl>
+                    <FormControl style={{ minWidth: 200}}>
+                    <InputLabel htmlFor="grouped-native-select">Group Tag</InputLabel>
+                    <Select onChange={ATTHandle} id="id" value={att} label="Topico">
+                      <MenuItem value='Gender'>Gender</MenuItem>
+                      <MenuItem value='Religion'>Religion</MenuItem>
+                      <MenuItem value='SexualOrientation'>Sexual Orientation</MenuItem>
+                    </Select>           
+                  </FormControl>
+              </CardActions> 
+          <CardContent>
+            <Box>
+                <Line 
+                  options={options(concept,att)}
+                  data={dataset2(countries,country,att,concept)}
+                />
+              </Box>
+            </CardContent>
+            </Card>
         </Container>
       </Box>
     </>

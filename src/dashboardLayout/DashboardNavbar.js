@@ -27,9 +27,8 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/app/dashboard3">
-        <Button variant="contained" color="primary"> Visibility in the media </Button>
+        <Button variant="contained" color="primary"> Temporal evolution </Button>
         </RouterLink>
-    
         <Box sx={{ flexGrow: 1 }} />
         <RouterLink to="/">
           <Logo />
