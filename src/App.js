@@ -1,23 +1,18 @@
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useRoutes } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core';
+import GlobalStyles from '../src/GlobalStyles';
+import theme from '../src/theme';
+import routes from '../src/routes';
 
-import './App.css';
-import React from "react";
-import{} from "react-router-dom"
-import { Route,BrowserRouter,Switch} from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-
-function App() {
+const App = () => {
+  const routing = useRoutes(routes);
   return (
-    <BrowserRouter>
-    <Switch>
-      <Route path="/" component={Dashboard} >
-
-      </Route>
-
-    </Switch>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {routing}
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
-
-//se tuvo que agregar los siguente modulos d3-fetch d3-scale react-simple-maps

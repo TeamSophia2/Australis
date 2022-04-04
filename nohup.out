@@ -1,0 +1,24 @@
+
+> australis@0.1.0 start
+> PORT=8011 react-scripts start "8011"
+
+(node:8054) [DEP0148] DeprecationWarning: Use of deprecated folder mapping "./" in the "exports" field module resolution of the package at /Users/felipeoyarzun/Desktop/Australis/node_modules/postcss-safe-parser/node_modules/postcss/package.json.
+Update this package.json to use a subpath pattern like "./*".
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Something is already running on port 8011.
+
+> australis@0.1.0 start
+> PORT=8011 react-scripts start "8011"
+
+(node:8098) [DEP0148] DeprecationWarning: Use of deprecated folder mapping "./" in the "exports" field module resolution of the package at /Users/felipeoyarzun/Desktop/Australis/node_modules/postcss-safe-parser/node_modules/postcss/package.json.
+Update this package.json to use a subpath pattern like "./*".
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Something is already running on port 8011.
+
+> australis@0.1.0 start
+> PORT=8011 react-scripts start
+
+(node:8104) [DEP0148] DeprecationWarning: Use of deprecated folder mapping "./" in the "exports" field module resolution of the package at /Users/felipeoyarzun/Desktop/Australis/node_modules/postcss-safe-parser/node_modules/postcss/package.json.
+Update this package.json to use a subpath pattern like "./*".
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Something is already running on port 8011.
