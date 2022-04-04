@@ -1,33 +1,29 @@
-# Australis
+# AUSTRALIS
+## UNA APLICACIÓN WEB PARA MONITORIAR INDICADORES DE PLURALISMO DE MEDIOS DE PRENSA INTERNACIONAL
+![N|Solid](https://raw.githubusercontent.com/TeamSophia2/Australis/main/public/static/logo1.png)
 
-Australis is a web page maked in React for the visualization data related whith Sophia2 proyect, this repository keeps the source code and the application changes.
+Australis es una aplicacion web hecha con Reactjs, para visualizar datos relacionados al proyecto Sophia2
 
-# How to deploy this aplication?
+## Cómo desplegar esta aplicacion
+Tienes 2 formas para desplegar esta aplicacion 
+### Ambiente desarrollo-servidor
+Necesitas:
+* Tener NodeJS 16 y npm 8.5 
+* Clonar este repositorio
+* entrar a la carpeta
+* instalar las dependencias usando el comando "npm install"
+* lanzar ambiente de desarrollo con "npm start"
+* lanzar ambiente de produccion "npm run build"
+* luego montar el contenido de la carpeta "build" en un servidor web
 
-you hace two ways to deploy this app, 
-first using node and npm inslalled or using Docker 
+### Ambiente contenedores
 
-For deploy you need: 
-* have NodeJs and npm installed. // version 14.15.3 and 6.14.1
-* Clone or download this repository. //
-* In the terminal, enter to "australis" path.
-* Intall dependecies writing "npm install" command.
-* launch app Writing "npm start" in the terminal. 
-* Open "localhost:3000" in browser.
+* Debes tener Docker instalado
+* Clonar este Respositorio
+* Entrar a la carpeta "Australis
+* Countruir imagenes usando el dockerfile "sudo docker build -t "australis":1.0 ."
+* Correr el imagenes espeficicando puerto//"sudo docker run -p 80:80 australis:1.0" 
 
-For deploy whit docker:
-* have Docker instaler 
-* clone this respository.// git clone http://github.com/TeamSophia2/Australis
-* in the terminal, enter to "australis" path. // cd Australis
-* make image in docker using the "dockerfile"// sudo docker build -t "australis":1.0 .
-* run docker image maping the port //sudo docker run -p 3000:3000 australis:1.0 
+#  Visualizaciones en Australis 
 
-#  Visualization in Australis
-
-Australis will have 3 mainly visualizations 
-
-the first visualization are a example that how use a maps maping country information 
-related whit the amount of media indexed to caleuche server in practic efect 
-
-
-
+Australis la forman tres escenarios de exploracion
