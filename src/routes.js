@@ -14,9 +14,9 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: '*', element: <Navigate to="/404" /> },
-      { path: 'dashboard', element: <Vista1 /> },
+  { path: 'dashboard', element: <Vista1 /> },
       { path: 'dashboard2', element: <Vista2/> },
-      { path: 'dashboard3', element: <Vista3/> }
+      { path: 'dashboard3', element: <Vista3/> } 
 
     ]
   },

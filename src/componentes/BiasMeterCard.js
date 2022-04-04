@@ -99,11 +99,11 @@ const BiasMeterCard = (props) => {
                 justifyContent: 'center',
               }}
             >
-            <BiasMeter concept="Inferiority" value={Index.[country][year].Gender.Inferiority} groups="Woman - Men" ></BiasMeter>
-            <BiasMeter concept="Culpability" value={Index.[country][year].Gender.Culpability}  groups="Woman - Men"  ></BiasMeter>
-            <BiasMeter concept="Authority" value={Index.[country][year].Gender.Authority} groups="Woman - Men" ></BiasMeter>
-            <BiasMeter concept="Privilege" value={Index.[country][year].Gender.Privilege}  groups="Woman - Men"  ></BiasMeter>
-            <BiasMeter concept="Freedom" value={Index.[country][year].Gender.Freedom}  groups="Woman - Men"  ></BiasMeter>
+            <BiasMeter concept="Inferiority" value={Index[country][year].Gender.Inferiority} groups="Woman - Men" ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index[country][year].Gender.Culpability}  groups="Woman - Men"  ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index[country][year].Gender.Authority} groups="Woman - Men" ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index[country][year].Gender.Privilege}  groups="Woman - Men"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index[country][year].Gender.Freedom}  groups="Woman - Men"  ></BiasMeter>
             
         </Box>
         <Typography
@@ -122,11 +122,11 @@ const BiasMeterCard = (props) => {
                 justifyContent: 'center',
               }}
             >
-            <BiasMeter concept="Inferiority" value={Index.[country][year].Religion.Inferiority} groups="Christianity - Islam"  ></BiasMeter>
-            <BiasMeter concept="Culpability" value={Index.[country][year].Religion.Culpability}  groups="Christianity - Islam"  ></BiasMeter>
-            <BiasMeter concept="Authority" value={Index.[country][year].Religion.Authority} groups="Christianity - Islam"  ></BiasMeter>
-            <BiasMeter concept="Privilege" value={Index.[country][year].Religion.Privilege}  groups="Christianity - Islam"  ></BiasMeter>
-            <BiasMeter concept="Freedom" value={Index.[country][year].Religion.Freedom}  groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Inferiority" value={Index[country][year].Religion.Inferiority} groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index[country][year].Religion.Culpability}  groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index[country][year].Religion.Authority} groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index[country][year].Religion.Privilege}  groups="Christianity - Islam"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index[country][year].Religion.Freedom}  groups="Christianity - Islam"  ></BiasMeter>
             
         </Box>
         <Typography
@@ -146,11 +146,11 @@ const BiasMeterCard = (props) => {
               }}
             >
             
-            <BiasMeter concept="Inferiority" value={Index.[country][year].SexualOrientation.Inferiority} groups="Homo - Hetero"  ></BiasMeter>
-            <BiasMeter concept="Culpability" value={Index.[country][year].SexualOrientation.Culpability}  groups="Homo - Hetero" ></BiasMeter>
-            <BiasMeter concept="Authority" value={Index.[country][year].SexualOrientation.Authority} groups="Homo - Hetero"  ></BiasMeter>
-            <BiasMeter concept="Privilege" value={Index.[country][year].SexualOrientation.Privilege}  groups="Homo - Hetero"  ></BiasMeter>
-            <BiasMeter concept="Freedom" value={Index.[country][year].SexualOrientation.Freedom}  groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Inferiority" value={Index[country][year].SexualOrientation.Inferiority} groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Culpability" value={Index[country][year].SexualOrientation.Culpability}  groups="Homo - Hetero" ></BiasMeter>
+            <BiasMeter concept="Authority" value={Index[country][year].SexualOrientation.Authority} groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Privilege" value={Index[country][year].SexualOrientation.Privilege}  groups="Homo - Hetero"  ></BiasMeter>
+            <BiasMeter concept="Freedom" value={Index[country][year].SexualOrientation.Freedom}  groups="Homo - Hetero"  ></BiasMeter>
             
         </Box>
 

@@ -87,7 +87,7 @@ const WorldMapCard = (
     setYear(indicadores.find((s)=>s.name===index).yearMax)
     setPais(country);
     setIso3(iso3);
-  },[index,iso3]);
+  },[index,iso3,setPais,setIso3,setYear,country]);
 
   return (
     <Card>

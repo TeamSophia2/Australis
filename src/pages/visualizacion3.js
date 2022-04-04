@@ -1,11 +1,9 @@
 import { Helmet } from 'react-helmet';
 import { Line } from 'react-chartjs-2';
 import { useState } from 'react';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
 import MenuItem from '@material-ui/core/MenuItem';
 import Index from '../componentes/indice.js'
 import {iso3toname} from "../helpers/iso3toname"
@@ -18,8 +16,7 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend,
-  annotation
+  Legend
 } from 'chart.js';
 import {
   Box,
@@ -28,10 +25,8 @@ import {
   CardHeader,
   Divider,
   Container,
-  CardActions,
-  Grid
+  CardActions
 } from '@material-ui/core';
-import { brown, purple, yellow } from '@material-ui/core/colors';
 
 ChartJS.register(
   CategoryScale,
@@ -49,7 +44,7 @@ const countries = Object.keys(Index);
 //se definen los conceptos que se desean graficar
 const concepts =["Inferiority","Culpability","Authority","Privilege","Freedom"]
 
-const data = (label,color,country,att) =>{{
+const data = (label,color,country,att) =>{
   return {
     label:label,
     data:Object.keys(Index[country]).map((year) => {            
@@ -64,10 +59,10 @@ const data = (label,color,country,att) =>{{
     borderColor: color,
     backgroundColor: color,
     }
-  }
+  
 }
 
-const data2 = (label,color,country,att,concept) =>{{
+const data2 = (label,color,country,att,concept) =>{
   return {
     label:label,
     data:Object.keys(Index[country]).map((year) => {  
@@ -85,7 +80,7 @@ const data2 = (label,color,country,att,concept) =>{{
     borderColor: color,
     backgroundColor: color,
     }
-  }
+  
 }
 //esta funcion torna una lista de funciones
 const dataset = (lista,country,att) =>{
